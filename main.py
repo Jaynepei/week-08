@@ -13,7 +13,7 @@ st.set_page_config(
 # endregion <--------- Streamlit App Configuration --------->
 
 ### Import the utility function to check password
-import streamlit as st  
+ 
 from helper_functions.utility import check_password  
 
  # Check if the password is correct.  
