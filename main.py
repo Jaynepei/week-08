@@ -1,27 +1,20 @@
-# Set up and run this Streamlit App
 import streamlit as st
 import pandas as pd
-# from helper_functions import llm
 from logics.customer_query_handler import process_user_message
-### Import the utility function to check password
 from helper_functions.utility import check_password 
 
-# region <--------- Streamlit App Configuration --------->
+# Streamlit app config
 st.set_page_config(
     page_title="CDP Courses Chatbot",
     layout="wide",
 )
-# endregion <--------- Streamlit App Configuration --------->
 
- # Check if the password is correct.  
-if not check_password():  
-     st.stop()
-
-### end
+if not check_password():
+    st.stop()
 
 st.title("Courses for Finance Professionals")
 
-# Initialize conversation history
+# Initialize session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
         {"role": "system", "content": "You are a helpful assistant for course recommendations."}
@@ -30,7 +23,20 @@ if "chat_history" not in st.session_state:
 if "course_details" not in st.session_state:
     st.session_state.course_details = []
 
-# Display full chat history
+# 1. Input form (at the bottom)
+with st.form(key="course_form", clear_on_submit=True):
+    user_input = st.text_area("Ask something about our available courses:", height=150)
+    submitted = st.form_submit_button("Send")
+
+# 2. Process user input BEFORE showing chat history
+if submitted and user_input:
+    reply, course_details = process_user_message(st.session_state.chat_history, user_input)
+    st.session_state.chat_history.append({"role": "user", "content": user_input})
+    st.session_state.chat_history.append({"role": "assistant", "content": reply})
+    st.session_state.course_details = course_details
+    st.toast("Response generated.")
+
+# 3. Display chat history (above the input form)
 st.markdown("---")
 st.subheader("Your guide to CDP courses for Finance Professionals")
 for msg in st.session_state.chat_history:
@@ -47,36 +53,15 @@ for msg in st.session_state.chat_history:
             unsafe_allow_html=True
         )
 
-# Input form
-with st.form(key="course_form"):
-    user_input = st.text_area("Ask something about our available courses:", height=150)
-    submitted = st.form_submit_button("Send")
-
-
-if submitted and user_input:
-    # Call your logic function (single-turn, but we still track chat)
-    reply, course_details = process_user_message(st.session_state.chat_history, user_input)
-    st.session_state.course_details = course_details
-    # Update chat history
-    st.session_state.chat_history.append({"role": "user", "content": user_input})
-    st.session_state.chat_history.append({"role": "assistant", "content": reply})
-
-    st.session_state.course_details = course_details
-
-    st.toast("Response generated.")
-    st.rerun()
-
-
-# Display the matched course details nicely
-# Important: `course_details` variable is only defined if user submitted input,
-# so check carefully or you might get a NameError when loading page initially.
+# 4. Show matched course details
 st.markdown("---")
 st.subheader("Matched Course Details")
 
 course_details = st.session_state.get("course_details", [])
 
-if course_details and len(course_details) > 0:
+if course_details:
     df = pd.DataFrame(course_details)
     st.dataframe(df, use_container_width=True)
 else:
     st.info("No course details to display.")
+
