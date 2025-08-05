@@ -10,6 +10,12 @@ df = pd.read_csv(csv_path)
 df.columns = df.columns.str.strip()
 df = df.fillna('')
 
+# Function to check if the input text is appropriate
+def check_moderation(text):
+    response = llm.client.moderations.create(input=text)  # assuming llm.client is your OpenAI client
+    result = response.results[0]
+    return result.flagged, result.categories
+
 # Build a dictionary: course title -> course details as dict
 dict_of_courses = {
     row['Course Title'].strip(): row.to_dict()
@@ -136,6 +142,13 @@ def generate_response_based_on_course_details(chat_history, user_message, produc
 
 def process_user_message(message_history, user_input):
 
+  # Step 0: Check moderation on user input
+    flagged, categories = check_moderation(user_input)
+    if flagged:
+        flagged_reasons = ', '.join([k for k, v in dict(categories).items() if v])
+        warning_msg = f"⚠️ Your input was flagged for: {flagged_reasons}. Please revise your query."
+        return warning_msg, []
+    
     # Step 1: Identify courses based on user input (your original logic)
     competency_n_course_name = identify_competency_and_courses(user_input)
     print("Matched courses: ", competency_n_course_name)  # For debugging; remove or comment out to avoid double print
@@ -145,6 +158,11 @@ def process_user_message(message_history, user_input):
 
     # Step 3: Generate a detailed, friendly reply using course details and user input
     reply = generate_response_based_on_course_details(message_history, user_input, course_details)
+
+    # Step 4: Check moderation on the generated reply too (recommended)
+    flagged_resp, categories_resp = check_moderation(reply)
+    if flagged_resp:
+        reply = "⚠️ The generated response was flagged as potentially unsafe. Please try rephrasing your query."
 
     # Return the reply and updated conversation history
     return reply, course_details

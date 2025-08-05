@@ -12,7 +12,7 @@ st.set_page_config(
 if not check_password():
     st.stop()
 
-st.title("Courses for Finance Professionals")
+st.title("Your guide to CDP courses for Finance Professionals")
 
 # Initialize session state
 if "chat_history" not in st.session_state:
@@ -38,7 +38,7 @@ if submitted and user_input:
 
 # 3. Display chat history (above the input form)
 st.markdown("---")
-st.subheader("Your guide to CDP courses for Finance Professionals")
+st.subheader("Courses for Finance Professionals")
 for msg in st.session_state.chat_history:
     if msg["role"] == "user":
         st.markdown(
