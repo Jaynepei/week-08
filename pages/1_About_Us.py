@@ -62,78 +62,135 @@ st.write("3. **View All Courses** – You can use the filters to explore learnin
 
 
 #A detailed page outlining the project scope, objectives, data sources, and features.
-
-# Project Overview
+# --- Project Overview ---
 st.header("Project Overview")
-st.write("""
-Welcome to the *Courses for Finance Professionals Chatbot**! This project is designed to 
+st.markdown("""
+<div style="max-width: 1100px; line-height:1.6; font-size:16px;">
+Welcome to the <em>Courses for Finance Professionals Chatbot</em>! This project is designed to 
 streamline the process of discovering relevant training courses tailored to the competencies 
 and proficiency levels required of finance professionals. By providing an interactive chatbot interface, 
-users can quickly receive personalised guidance and explore detailed information about available courses.
+users can quickly receive personalised guidance and explore detailed information about available courses.  
 Whether you're a new joiner or an experienced officer, the chatbot supports your learning journey by helping you 
-identify the right courses to build and strengthen your skills at every stage.""")
+identify the right courses to build and strengthen your skills at every stage.
 
-# Project Scope
+---
+
+In addition to the chatbot for end users, the system includes a secure admin-only dashboard with 
+a built-in <strong>web scraping tool</strong>. This tool enables administrators to:
+
+- Automatically check the validity of course URLs listed in the database  
+- Fetch and display page titles and content snippets for easy review  
+- Identify broken or outdated links without needing to click each URL manually  
+- View progress updates via a progress bar with live status and visual feedback  
+- Export the latest scraped results to a CSV file for future reference  
+
+This functionality helps maintain high data quality and ensures users always have access to accurate course links.
+</div>
+""", unsafe_allow_html=True)
+
+# --- Project Scope ---
 st.header("Project Scope")
-st.write("""
-This project consists of two primary components:
-
-**Conversational Assistant**
-An intelligent chatbot that leverages conversation history to provide personalised guidance. It uses a large language model (LLM) to understand user inputs and recommend relevant courses tailored to the user’s competencies, interests, and career development needs.
-**Courses Display Interface**
+st.markdown("""
+<div style="max-width: 1100px; line-height:1.6; font-size:16px;">
+This project consists of two primary components, designed to serve both regular users and administrators:
+<br><br>
+<strong>Conversational Assistant (for Users & Admins)</strong><br>
+An intelligent chatbot that leverages conversation history to provide personalised guidance.  
+It uses a large language model (LLM) to understand user inputs and recommend relevant courses tailored to the user’s competencies, interests, and career development needs.
+<br><br>
+<strong>Courses Display Interface (for Users & Admins)</strong><br>
 A dynamic, user-friendly interface that presents course information through:
-1. LLM-Powered Course Table: A searchable and filterable table that displays course details based on user queries, allowing for easy comparison and exploration.
-2. Course Tiles View: A visually engaging, tile-based layout that showcases courses by category or keyword. This makes it easy for users to browse and quickly identify relevant training opportunities.
-The goal of this project is to empower finance professionals with the tools and information they need to make informed training decisions, supporting continuous learning and professional growth throughout their career journey.
-""")
+<ol>
+<li><strong>LLM-Powered Course Table</strong> – A searchable and filterable table that displays course details based on user queries, allowing for easy comparison and exploration.</li>
+<li><strong>Course Tiles View</strong> – A visually engaging, tile-based layout that showcases courses by category or keyword, making it easy for users to browse and identify relevant training opportunities.</li>
+</ol>
+<br>
+<strong>Admin-Only Web Scraping Dashboard</strong><br>
+A secure section accessible only to admins that includes:
+<ul>
+<li>A scraping tool that automatically extracts course page titles and summaries from URLs listed in the dataset</li>
+<li>Real-time progress updates with a visual progress bar and animated status indicator</li>
+<li>CSV export functionality for scraped data, helping admins identify broken links or outdated content</li>
+<li>A built-in login system to restrict access to scraping features and ensure data integrity</li>
+</ul>
+<br>
+The goal of this project is to empower finance professionals with the tools and information they need to make informed training decisions, while also equipping administrators with backend tools to maintain course data accuracy and quality.
+</div>
+""", unsafe_allow_html=True)
 
-# Objectives
+# --- Project Objectives ---
 st.header("Project Objectives")
-st.write("""
-1. **User Empowerment**: Equip finance professionals with timely, relevant course information to support their upskilling and career development decisions.
+st.markdown("""
+<div style="max-width: 1100px; line-height:1.6; font-size:16px;">
+1. <strong>User Empowerment</strong>: Equip finance professionals with timely, relevant course information to support their upskilling and career development decisions.<br><br>
+2. <strong>Personalised Recommendations</strong>: Leverage conversational AI and LLM capabilities to provide tailored course suggestions based on each user’s competencies and needs.<br><br>
+3. <strong>Information Accessibility</strong>: Present course data in a clear and intuitive format—through searchable tables and visual tiles—ensuring ease of use for all users, regardless of technical background.<br><br>
+4. <strong>Data Accuracy & Maintenance (Admin Only)</strong>: Provide administrators with a secure web scraping tool to automatically verify course URLs, detect broken or outdated links, and maintain the integrity of the course database.
+</div>
+""", unsafe_allow_html=True)
 
-2. **Personalised Recommendations**: Leverage conversational AI and LLM capabilities to provide tailored course suggestions based on each user’s competencies and needs.
-
-3. **Information Accessibility**: Present course data in a clear and intuitive format—through searchable tables and visual tiles—ensuring ease of use for all users, regardless of technical background.
-""")
-
-# Data Sources
+# --- Data Sources ---
 st.header("Data Sources")
-st.write("""
+st.markdown("""
+<div style="max-width: 1100px; line-height:1.6; font-size:16px;">
 This application draws from multiple structured and dynamic sources to ensure relevant, accurate, and contextual course recommendations:
 
-Course Dataset: A comprehensive list of internal training courses, each tagged to specific competencies and mapped to the relevant proficiency levels. This dataset enables targeted course suggestions that align with the user’s developmental stage.
+<ul>
+<li><strong>Course Dataset</strong>: A comprehensive list of internal training courses, each tagged to specific competencies and mapped to the relevant proficiency levels. This dataset enables targeted course suggestions that align with the user’s developmental stage.</li>
 
-Competency-Proficiency Framework: A structured reference that outlines key competencies required by finance professionals, each accompanied by detailed descriptions for proficiency levels ranging from Level 1 (Foundational) to Level 5 (Master). This framework helps the chatbot explain what each level entails and recommend suitable courses that support progression across the levels.
+<li><strong>Competency-Proficiency Framework</strong>: A structured reference that outlines key competencies required by finance professionals, each accompanied by detailed descriptions for proficiency levels ranging from Level 1 (Foundational) to Level 5 (Master). This framework helps the chatbot explain what each level entails and recommend suitable courses that support progression across the levels.</li>
 
-User Input: The chatbot uses a large language model (LLM) to interpret and respond to user queries. By understanding natural language inputs, it can identify the relevant competency or course of interest, and over time, refine its responses based on repeated interactions and patterns.
-""")
+<li><strong>User Input</strong>: The chatbot uses a large language model (LLM) to interpret and respond to user queries. By understanding natural language inputs, it can identify the relevant competency or course of interest, and over time, refine its responses based on repeated interactions and patterns.</li>
+</ul>
+</div>
+""", unsafe_allow_html=True)
 
-# Features
+# --- Features ---
 st.header("Features")
 
-st.subheader("Courses for Finance Professionals Chatbot")
-st.write("""
-- **Natural Language Understanding**: The chatbot uses a large language model (LLM) to interpret user queries related to training needs, such as competencies, course titles, or proficiency levels.
+st.subheader("Courses for Finance Professionals Chatbot (User & Admin)")
+st.markdown("""
+<div style="max-width: 1100px; line-height:1.6; font-size:16px;">
+<ul>
+<li><strong>Natural Language Understanding</strong>: The chatbot uses a large language model (LLM) to interpret user queries related to training needs, such as competencies, course titles, or proficiency levels.</li>
 
-- **Interactive Interface**: Users can engage in a seamless, chat-based interaction to explore relevant courses, making the discovery process intuitive and user-friendly.
+<li><strong>Interactive Interface</strong>: Users can engage in a seamless, chat-based interaction to explore relevant courses, making the discovery process intuitive and user-friendly.</li>
 
-- **Conversation History**: The chatbot retains context from previous interactions within the same session, allowing for more coherent and continuous guidance across multiple queries.
+<li><strong>Conversation History</strong>: The chatbot retains context from previous interactions within the same session, allowing for more coherent and continuous guidance across multiple queries.</li>
 
-- **Personalised Guidance**: Based on user input and mapped competencies, the chatbot recommends suitable courses aligned with the user’s current proficiency level and learning objectives.
+<li><strong>Personalised Guidance</strong>: Based on user input and mapped competencies, the chatbot recommends suitable courses aligned with the user’s current proficiency level and learning objectives.</li>
 
-- **Built-in Moderation for Safe Interactions**: Ensures conversations are safe and appropriate by filtering harmful or inappropriate inputs and outputs in real time.
-
-""")
+<li><strong>Built-in Moderation for Safe Interactions</strong>: Ensures conversations are safe and appropriate by filtering harmful or inappropriate inputs and outputs in real time.</li>
+</ul>
+</div>
+""", unsafe_allow_html=True)
 
 st.subheader("Course Tiles Dashboard")
-st.write("""
-- **Visual Overview**: Courses are displayed in a clean, tile-based layout for easy browsing.
+st.markdown("""
+<div style="max-width: 1100px; line-height:1.6; font-size:16px;">
+<ul>
+<li><strong>Visual Overview</strong>: Courses are displayed in a clean, tile-based layout for easy browsing.</li>
 
-- **Filter Functionality**: Users can filter courses by competency, proficiency level, or course name to quickly narrow down their options.
+<li><strong>Filter Functionality</strong>: Users can filter courses by competency, proficiency level, or course name to quickly narrow down their options.</li>
 
-- **Interactive Exploration**: Each tile provides key information about the course, helping users make quick comparisons and informed decisions at a glance.
+<li><strong>Interactive Exploration</strong>: Each tile provides key information about the course, helping users make quick comparisons and informed decisions at a glance.</li>
 
-- **Direct Links & Resources**: Access course brochures, registration pages, or contact info directly from each tile.
-         
- """)
+<li><strong>Direct Links & Resources</strong>: Access course brochures, registration pages, or contact info directly from each tile.</li>
+</ul>
+</div>
+""", unsafe_allow_html=True)
+
+st.subheader("Admin Web Scraping Tool (Admin Only)")
+st.markdown("""
+<div style="max-width: 1100px; line-height:1.6; font-size:16px;">
+<ul>
+<li><strong>Automated URL Verification</strong>: Bulk-scrape course URLs to retrieve page titles and snippets, helping identify broken or outdated links without manual checking.</li>
+
+<li><strong>Progress Tracking</strong>: Visual progress bar and status updates during scraping to monitor the process efficiently.</li>
+
+<li><strong>Data Maintenance</strong>: Export scraped results to CSV for easy review and updating of course links in the system.</li>
+
+<li><strong>Secure Access</strong>: Restricted to admin users with login credentials to ensure data security and operational control.</li>
+</ul>
+</div>
+""", unsafe_allow_html=True)

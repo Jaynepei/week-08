@@ -26,10 +26,11 @@ with st.expander("🔐 User Authentication", expanded=False):
     Basic authentication is implemented using password input, controlled via `st.session_state` and checked against credentials stored securely in `.streamlit/secrets.toml`.
     """)
 
-with st.expander("📊 Course Data Processing", expanded=False):
+with st.expander("📊 Course Data Processing & Web Scraping", expanded=False):
     st.markdown("""
-    Course data is stored in a **CSV file**. Upon user input, the chatbot retrieves and matches course details using keyword extraction and semantic similarity.
-    Additional web scraping can enrich course descriptions using the URL field.
+    Course data is stored in a **CSV file**. Upon user input, the chatbot retrieves and matches course details using keyword extraction and semantic similarity.  
+    Additionally, an **admin-only web scraping tool** periodically crawls course URLs to validate and update course information by fetching page titles and snippets.  
+    This automation helps identify broken or outdated links efficiently without manual checks.
     """)
 
 with st.expander("🗂️ Conversation History Tracking", expanded=False):
